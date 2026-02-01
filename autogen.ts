@@ -2,7 +2,7 @@ import { createSourceFile, isTypeAliasDeclaration, ScriptTarget, Statement } fro
 import { readdir } from "node:fs/promises";
 import { mkdir } from 'node:fs/promises';
 
-const TARGET_AUTOGEN_TEST_FOLDER = "./src-tests-autogen"
+const TARGET_AUTOGEN_TEST_FOLDER = "./src-tests"
 
 const modules_to_test = [
     'assert',
