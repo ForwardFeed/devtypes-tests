@@ -1,4 +1,4 @@
-import { createSourceFile, isTypeAliasDeclaration, ScriptTarget, Statement } from 'typescript';
+import { createSourceFile, isExportAssignment, isTypeAliasDeclaration, isTypeOnlyExportDeclaration, ScriptTarget, Statement, SyntaxKind } from 'typescript';
 import { readdir } from "node:fs/promises";
 import { mkdir } from 'node:fs/promises';
 
@@ -66,7 +66,7 @@ function get_module_folder_path(module_name: string): string{
 
 async function on_statement(statement: Statement, module_name: string){
     try{
-        if (isTypeAliasDeclaration(statement)) {
+        if (isTypeAliasDeclaration(statement) && statement.modifiers?.some(modifier => modifier.kind === SyntaxKind.ExportKeyword)) {
             // getText() is bugged so I use this non-safe thing here
             const type_name = statement.name.escapedText as string
             await setup_default_test_file(module_name, type_name)
