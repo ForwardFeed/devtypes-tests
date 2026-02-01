@@ -1,0 +1,3 @@
+[submodule "devtypes"]
+	path = devtypes
+	url = git@github.com:komed3/devtypes.git
