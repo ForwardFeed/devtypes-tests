@@ -1,8 +1,8 @@
 import type {PartiallyMapped} from "@devtypes/object"
 
-// Examples automatically extracted from the documentation.
+// Examples extracted from the documentation.
 const stringValidator: PartiallyMapped< 'username' | 'email', ( field: string ) => boolean > = {
-  username: ( field: string ) => regex.validate( 'username', field )
+  username: ( field: string ) => regex.test( 'username', field )
 };
 
 // Manually written content.
