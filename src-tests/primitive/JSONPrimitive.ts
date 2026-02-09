@@ -1,4 +1,5 @@
 import type {JSONPrimitive} from "@devtypes/primitive"
-// Examples from the documentation
+// Examples automatically extracted from the documentation.
 type JP = JSONPrimitive;
 // string | number | boolean | null
+// Manually written content.

@@ -1,6 +1,7 @@
 import type {AwaitedReturnType} from "@devtypes/functional"
-// Examples from the documentation
+// Examples automatically extracted from the documentation.
 type F1 = () => string;
 type R1 = AwaitedReturnType< F1 >;  // string
 type F2 = () => Promise< number >;
 type R2 = AwaitedReturnType< F2 >;  // number
+// Manually written content.

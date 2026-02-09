@@ -1,4 +1,5 @@
 import type {AssertNumber} from "@devtypes/assert"
-// Examples from the documentation
+// Examples automatically extracted from the documentation.
 type A = AssertNumber< number >;   // ✓
 type B = AssertNumber< boolean >;  // ✗ TS error
+// Manually written content.

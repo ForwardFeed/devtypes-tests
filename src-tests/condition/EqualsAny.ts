@@ -1,5 +1,6 @@
 import type {EqualsAny} from "@devtypes/condition"
-// Examples from the documentation
+// Examples automatically extracted from the documentation.
 type A = EqualsAny< [ string, number, string ] >;  // false
 type B = EqualsAny< [ string, string, number ] >;  // true
 type C = EqualsAny< [ 1, 2, 3 ] >;                 // false
+// Manually written content.

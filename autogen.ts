@@ -119,8 +119,9 @@ async function setup_default_test_file(module_name: string, type_name: string, e
 async function write_default_file(module_name: string, type_name: string, file_path: string, examples: string): Promise<number> {
     const text = `\
 import type {${type_name}} from "@devtypes/${module_name}"
-// Examples from the documentation
+// Examples automatically extracted from the documentation.
 ${examples}
+// Manually written content.
 `
     return Bun.write(file_path, text)
 }

@@ -1,4 +1,5 @@
 import type {AssertBoolean} from "@devtypes/assert"
-// Examples from the documentation
+// Examples automatically extracted from the documentation.
 type A = AssertBoolean< true >;    // ✓
 type B = AssertBoolean< string >;  // ✗ TS error
+// Manually written content.

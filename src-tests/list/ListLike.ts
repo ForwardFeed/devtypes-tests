@@ -1,3 +1,4 @@
 import type {ListLike} from "@devtypes/list"
-// Examples from the documentation
+// Examples automatically extracted from the documentation.
 type NumList = ListLike< number >;
+// Manually written content.

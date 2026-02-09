@@ -1,4 +1,5 @@
 import type {AssertSymbol} from "@devtypes/assert"
-// Examples from the documentation
+// Examples automatically extracted from the documentation.
 type A = AssertSymbol< symbol >;  // ✓
 type B = AssertSymbol< string >;  // ✗ TS error
+// Manually written content.
