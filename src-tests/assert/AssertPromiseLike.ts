@@ -5,9 +5,4 @@ type A = AssertPromiseLike< Promise< number > >;  // ✓
 type B = AssertPromiseLike< { then(): void } >;   // ✓
 type C = AssertPromiseLike< number >;             // ✗ TS error
 
-// Test automatically generated from examples.
-const A: A = ✓
-const B: B = ✓
-const C: C = ✗ TS error
-
 // Manually written content.

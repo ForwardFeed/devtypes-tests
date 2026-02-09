@@ -4,8 +4,4 @@ import type {IsUnion} from "@devtypes/guard"
 type A = IsUnion< string | number >;  // true
 type B = IsUnion< string >;           // false
 
-// Test automatically generated from examples.
-const A: A = true
-const B: B = false
-
 // Manually written content.

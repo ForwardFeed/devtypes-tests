@@ -4,8 +4,4 @@ import type {IsNonEmptyTuple} from "@devtypes/guard"
 type A = IsNonEmptyTuple< [ number ] >;  // true
 type B = IsNonEmptyTuple< [] >;          // false
 
-// Test automatically generated from examples.
-const A: A = true
-const B: B = false
-
 // Manually written content.

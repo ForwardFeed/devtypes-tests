@@ -4,8 +4,4 @@ import type {AssertFunctionObject} from "@devtypes/assert"
 type A = AssertFunctionObject< { a(): void; b(): number } >;  // ✓
 type B = AssertFunctionObject< { a: number } >;               // ✗ TS error
 
-// Test automatically generated from examples.
-const A: A = ✓
-const B: B = ✗ TS error
-
 // Manually written content.

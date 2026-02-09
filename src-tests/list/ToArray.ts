@@ -4,8 +4,4 @@ import type {ToArray} from "@devtypes/list"
 type A = ToArray< number[] >;       // number[]
 type B = ToArray< Set< string > >;  // string[]
 
-// Test automatically generated from examples.
-const A: A = number[]
-const B: B = string[]
-
 // Manually written content.

@@ -4,7 +4,4 @@ import type {UnionValues} from "@devtypes/union"
 type U = { a: string } | { b: number };
 type V = UnionValues< U >;  // string | number
 
-// Test automatically generated from examples.
-const V: V = string | number
-
 // Manually written content.

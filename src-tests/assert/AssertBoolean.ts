@@ -4,8 +4,4 @@ import type {AssertBoolean} from "@devtypes/assert"
 type A = AssertBoolean< true >;    // ✓
 type B = AssertBoolean< string >;  // ✗ TS error
 
-// Test automatically generated from examples.
-const A: A = ✓
-const B: B = ✗ TS error
-
 // Manually written content.

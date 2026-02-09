@@ -4,7 +4,4 @@ import type {Flatten} from "@devtypes/util"
 type Arr = Array< { a: number } >;
 type FlatArr = Flatten< Arr >; // { a: number }[]
 
-// Test automatically generated from examples.
-const FlatArr: FlatArr = { a: number }[]
-
 // Manually written content.

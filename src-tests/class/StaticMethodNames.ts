@@ -4,7 +4,4 @@ import type {StaticMethodNames} from "@devtypes/class"
 class Utils { static create() {} static format() {} }
 type StaticMethods = StaticMethodNames< typeof Utils >; // 'create' | 'format'
 
-// Test automatically generated from examples.
-const StaticMethods: StaticMethods = 'create' | 'format'
-
 // Manually written content.

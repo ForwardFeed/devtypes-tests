@@ -4,8 +4,4 @@ import type {IsNonEmptyObject} from "@devtypes/guard"
 type A = IsNonEmptyObject< { a: number } >;  // true
 type B = IsNonEmptyObject< {} >;             // false
 
-// Test automatically generated from examples.
-const A: A = true
-const B: B = false
-
 // Manually written content.

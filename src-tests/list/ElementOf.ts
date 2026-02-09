@@ -4,7 +4,4 @@ import type {ElementOf} from "@devtypes/list"
 type Arr = number[];
 type Elem = ElementOf< Arr >;  // number
 
-// Test automatically generated from examples.
-const Elem: Elem = number
-
 // Manually written content.

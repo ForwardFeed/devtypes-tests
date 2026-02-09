@@ -4,7 +4,4 @@ import type {InstanceType} from "@devtypes/class"
 class User { id: number; name: string; }
 type UserInstance = InstanceType< typeof User >; // User
 
-// Test automatically generated from examples.
-const UserInstance: UserInstance = User
-
 // Manually written content.

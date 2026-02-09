@@ -4,7 +4,4 @@ import type {OptionalKeys} from "@devtypes/constraint"
 type Obj = { a: number; b?: string; c: number | undefined; d: boolean };
 type OptKeys = OptionalKeys< Obj >;  // 'b' | 'c'
 
-// Test automatically generated from examples.
-const OptKeys: OptKeys = 'b' | 'c'
-
 // Manually written content.
