@@ -1,4 +1,4 @@
-import { createSourceFile, isExportAssignment, isTypeAliasDeclaration, isTypeOnlyExportDeclaration, ScriptTarget, Statement, SyntaxKind } from 'typescript';
+import { createSourceFile, isExportAssignment, isTypeAliasDeclaration, isTypeOnlyExportDeclaration, isTypeParameterDeclaration, JSDoc, ScriptTarget, Statement, SyntaxKind } from 'typescript';
 import { readdir } from "node:fs/promises";
 import { mkdir } from 'node:fs/promises';
 
@@ -64,12 +64,41 @@ function get_module_folder_path(module_name: string): string{
     return `${TARGET_AUTOGEN_TEST_FOLDER}/${module_name}`
 }
 
+
+function get_jsdoc_out_of_statement(statement: Statement): JSDoc | undefined{
+    if ('jsDoc' in statement){
+        const js_docs = statement.jsDoc as JSDoc[]
+        if (js_docs.length === 0)
+            return
+        // picks only the last because some comments
+        // are about the file data
+        return js_docs.slice(-1)[0]
+    }
+}
+
+function get_jsdoc_example_tags(js_doc: JSDoc | undefined): string | undefined{
+    if (js_doc === undefined) return
+    const tags = js_doc.tags
+    if (!tags) return
+    /* for (const tag in tags){
+        return tag
+    } */
+    for (const tag of tags){
+        const tag_name = tag.tagName.escapedText as string
+        if (tag_name === 'example')
+            return tag.comment?.toString()
+    }
+}
+
 async function on_statement(statement: Statement, module_name: string){
     try{
         if (isTypeAliasDeclaration(statement) && statement.modifiers?.some(modifier => modifier.kind === SyntaxKind.ExportKeyword)) {
-            // getText() is bugged so I use this non-safe thing here
+            // getText() requires the source file so I rather do this unsafe thing that just works
             const type_name = statement.name.escapedText as string
-            await setup_default_test_file(module_name, type_name)
+            const js_doc = get_jsdoc_out_of_statement(statement)
+            const examples = get_jsdoc_example_tags(js_doc)
+            //console.log(examples, `${module_name}/${type_name}`)
+            await setup_default_test_file(module_name, type_name, examples)
         }
     } catch(e){
         console.error(e)   
@@ -77,19 +106,21 @@ async function on_statement(statement: Statement, module_name: string){
 }
 
 
-async function setup_default_test_file(module_name: string, type_name: string){
+async function setup_default_test_file(module_name: string, type_name: string, examples: string){
     const module_folder_path = get_module_folder_path(module_name)
     const type_test_file_path = `${module_folder_path}/${type_name}.ts`
     if (! await Bun.file(type_test_file_path).exists()){
         console.log(`Creating file ${type_test_file_path} for module ${module_name} and type: ${type_name}`)
-        await write_default_file(module_name, type_name, type_test_file_path)
+        await write_default_file(module_name, type_name, type_test_file_path, examples)
     }
     
 }
 
-async function write_default_file(module_name: string, type_name: string, file_path: string): Promise<number> {
+async function write_default_file(module_name: string, type_name: string, file_path: string, examples: string): Promise<number> {
     const text = `\
 import type {${type_name}} from "@devtypes/${module_name}"
+// Examples from the documentation
+${examples}
 `
     return Bun.write(file_path, text)
 }
