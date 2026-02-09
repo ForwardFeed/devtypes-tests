@@ -96,7 +96,7 @@ async function on_statement(statement: Statement, module_name: string){
             // getText() requires the source file so I rather do this unsafe thing that just works
             const type_name = statement.name.escapedText as string
             const js_doc = get_jsdoc_out_of_statement(statement)
-            const examples = get_jsdoc_example_tags(js_doc)
+            const examples = get_jsdoc_example_tags(js_doc) || ""
             //console.log(examples, `${module_name}/${type_name}`)
             await setup_default_test_file(module_name, type_name, examples)
         }
@@ -117,11 +117,33 @@ async function setup_default_test_file(module_name: string, type_name: string, e
 }
 
 async function write_default_file(module_name: string, type_name: string, file_path: string, examples: string): Promise<number> {
+    const autogen_tests = test_generated_from_example(examples)
     const text = `\
 import type {${type_name}} from "@devtypes/${module_name}"
+
 // Examples automatically extracted from the documentation.
 ${examples}
+${autogen_tests.length ?  `\n// Test automatically generated from examples.\n${autogen_tests.join('\n')}\n` : ''}\
+
 // Manually written content.
 `
     return Bun.write(file_path, text)
+}
+
+function test_generated_from_example(example: string): string[]{
+    const split = example.split('\n')
+    const test_autogen: string[] = []
+    split.forEach(line => {
+        const is_comment_matched = line.match(/\/\/.*/)
+        if (is_comment_matched === null) return
+        const is_type_matched = line.match(/type\s+\w+/)
+        if (is_type_matched === null){
+            console.warn('failed to generate test from line: ' + line)
+            return
+        }
+        const comment_as_value = is_comment_matched[0].replace(/^\/\/\s+/, '').trim()
+        const type = is_type_matched[0].replace(/^type\s+/, '').trim()
+        test_autogen.push(`const ${type}: ${type} = ${comment_as_value}`)
+    })
+    return test_autogen
 }
